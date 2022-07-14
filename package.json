@@ -1,11 +1,10 @@
 {
-  "name": "ncm-audio-recognize",
+  "name": "ncm-audio-recognize-api",
   "version": "1.0.0",
   "description": "",
-  "main": "test.ts",
+  "main": "server.js",
   "scripts": {
-    "test-ts": "tsx test.ts",
-    "test-js": "node test.js"
+    "server": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +21,10 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "formidable": "^2.0.1",
     "tsx": "^3.6.0",
+    "uuid": "^8.3.2",
     "web-audio-api": "github:audiojs/web-audio-api",
     "web-audio-api-cjs": "^0.2.4"
   }

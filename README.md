@@ -30,13 +30,12 @@ npm run test-js samples/Komplexe.mp3
 
 ```NeteaseUtils.Encode(audiodata, from, len, channel)```
 
-Params| Type |Description|
-|-------|-------|-------|
-```audiodata``` | `AudioBuffer` | The audio data. 
-```from``` | `number` | The time when the audio data started
-```len``` | `number` | The secs of the audio data.
-```channel``` | `number` | The channel of the audio data.
-
+| Params          | Type          | Description                          |
+|-----------------|---------------|--------------------------------------|
+| ```audiodata``` | `AudioBuffer` | The audio data.                      |
+| ```from```      | `number`      | The time when the audio data started |
+| ```len```       | `number`      | The secs of the audio data.          |
+| ```channel```   | `number`      | The channel of the audio data.       |
 
 ## Credits
 
