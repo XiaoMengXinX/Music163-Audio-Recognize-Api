@@ -1,108 +1,115 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+const getRandomValues = require('get-random-values');
+
 let processor = (() => {
     var t = {
         321: (t, e, r) => {
             var n, o = void 0 !== o ? o : {}, i = {};
             for (n in o)
                 o.hasOwnProperty(n) && (i[n] = o[n]);
-            var a, u, s, c, f, l = [], p = "./this.program", d = "object" == typeof window, h = "function" == typeof importScripts, y = "object" == typeof process && "object" == typeof process.versions && "string" == typeof process.versions.node, m = "";
+            var a, u, s, c, f, l = [], p = "./this.program", d = "object" == typeof window,
+                h = "function" == typeof importScripts,
+                y = "object" == typeof process && "object" == typeof process.versions && "string" == typeof process.versions.node,
+                m = "";
             y ? (m = h ? r(997).dirname(m) + "/" : "//",
-                a = function (t, e) {
-                    return c || (c = r(194)),
+                    a = function (t, e) {
+                        return c || (c = r(194)),
                         f || (f = r(997)),
-                        t = f.normalize(t),
-                        c.readFileSync(t, e ? null : "utf8")
-                }
-                ,
-                s = function (t) {
-                    var e = a(t, !0);
-                    return e.buffer || (e = new Uint8Array(e)),
-                        T(e.buffer),
-                        e
-                }
-                ,
-                u = function (t, e, n) {
-                    c || (c = r(194)),
+                            t = f.normalize(t),
+                            c.readFileSync(t, e ? null : "utf8")
+                    }
+                    ,
+                    s = function (t) {
+                        var e = a(t, !0);
+                        return e.buffer || (e = new Uint8Array(e)),
+                            T(e.buffer),
+                            e
+                    }
+                    ,
+                    u = function (t, e, n) {
+                        c || (c = r(194)),
                         f || (f = r(997)),
-                        t = f.normalize(t),
-                        c.readFile(t, (function (t, r) {
-                            t ? n(t) : e(r.buffer)
-                        }
-                        ))
-                }
-                ,
+                            t = f.normalize(t),
+                            c.readFile(t, (function (t, r) {
+                                    t ? n(t) : e(r.buffer)
+                                }
+                            ))
+                    }
+                    ,
                 process.argv.length > 1 && (p = process.argv[1].replace(/\\/g, "/")),
-                l = process.argv.slice(2),
-                t.exports = o,
-                process.on("uncaughtException", (function (t) {
-                    if (!(t instanceof Re))
-                        throw t
-                }
-                )),
-                process.on("unhandledRejection", (function (t) {
-                    throw t
-                }
-                )),
-                function (t, e) {
-                    if (_)
-                        throw process.exitCode = t,
-                        e;
-                    var r;
-                    (r = e) instanceof Re || g("exiting due to exception: " + r),
-                        process.exit(t)
-                }
-                ,
-                o.inspect = function () {
-                    return "[Emscripten Module object]"
-                }
-            ) : (d || h) && (h ? m = self.location.href : "undefined" != typeof document && document.currentScript && (m = document.currentScript.src),
-                m = 0 !== m.indexOf("blob:") ? m.substr(0, m.replace(/[?#].*/, "").lastIndexOf("/") + 1) : "",
-                a = function (t) {
-                    var e = new XMLHttpRequest;
-                    return e.open("GET", t, !1),
-                        e.send(null),
-                        e.responseText
-                }
-                ,
-                h && (s = function (t) {
-                    var e = new XMLHttpRequest;
-                    return e.open("GET", t, !1),
-                        e.responseType = "arraybuffer",
-                        e.send(null),
-                        new Uint8Array(e.response)
-                }
-                ),
-                u = function (t, e, r) {
-                    var n = new XMLHttpRequest;
-                    n.open("GET", t, !0),
-                        n.responseType = "arraybuffer",
-                        n.onload = function () {
-                            200 == n.status || 0 == n.status && n.response ? e(n.response) : r()
+                    l = process.argv.slice(2),
+                    t.exports = o,
+                    process.on("uncaughtException", (function (t) {
+                            if (!(t instanceof Re))
+                                throw t
                         }
-                        ,
-                        n.onerror = r,
-                        n.send(null)
-                }
+                    )),
+                    process.on("unhandledRejection", (function (t) {
+                            throw t
+                        }
+                    )),
+                    function (t, e) {
+                        if (_)
+                            throw process.exitCode = t,
+                                e;
+                        var r;
+                        (r = e) instanceof Re || g("exiting due to exception: " + r),
+                            process.exit(t)
+                    }
+                    ,
+                    o.inspect = function () {
+                        return "[Emscripten Module object]"
+                    }
+            ) : (d || h) && (h ? m = self.location.href : "undefined" != typeof document && document.currentScript && (m = document.currentScript.src),
+                    m = 0 !== m.indexOf("blob:") ? m.substr(0, m.replace(/[?#].*/, "").lastIndexOf("/") + 1) : "",
+                    a = function (t) {
+                        var e = new XMLHttpRequest;
+                        return e.open("GET", t, !1),
+                            e.send(null),
+                            e.responseText
+                    }
+                    ,
+                h && (s = function (t) {
+                        var e = new XMLHttpRequest;
+                        return e.open("GET", t, !1),
+                            e.responseType = "arraybuffer",
+                            e.send(null),
+                            new Uint8Array(e.response)
+                    }
+                ),
+                    u = function (t, e, r) {
+                        var n = new XMLHttpRequest;
+                        n.open("GET", t, !0),
+                            n.responseType = "arraybuffer",
+                            n.onload = function () {
+                                200 == n.status || 0 == n.status && n.response ? e(n.response) : r()
+                            }
+                            ,
+                            n.onerror = r,
+                            n.send(null)
+                    }
             );
             var v = o.print || console.log.bind(console)
                 , g = o.printErr || console.warn.bind(console);
             for (n in i)
                 i.hasOwnProperty(n) && (o[n] = i[n]);
             i = null,
-                o.arguments && (l = o.arguments),
-                o.thisProgram && (p = o.thisProgram),
-                o.quit && o.quit;
+            o.arguments && (l = o.arguments),
+            o.thisProgram && (p = o.thisProgram),
+            o.quit && o.quit;
             var w;
             o.wasmBinary && (w = o.wasmBinary);
             var b, _ = o.noExitRuntime || !0;
             "object" != typeof WebAssembly && K("no native wasm support detected");
             var C = !1;
+
             function T(t, e) {
                 t || K("Assertion failed: " + e)
             }
+
             var $ = "undefined" != typeof TextDecoder ? new TextDecoder("utf8") : void 0;
+
             function P(t, e, r) {
                 for (var n = e + r, o = e; t[o] && !(o >= n);)
                     ++o;
@@ -127,9 +134,11 @@ let processor = (() => {
                 }
                 return i
             }
+
             function A(t, e) {
                 return t ? P(O, t, e) : ""
             }
+
             function D(t, e, r, n) {
                 if (!(n > 0))
                     return 0;
@@ -162,8 +171,9 @@ let processor = (() => {
                     }
                 }
                 return e[r] = 0,
-                    r - o
+                r - o
             }
+
             function F(t) {
                 for (var e = 0, r = 0; r < t.length; ++r) {
                     var n = t.charCodeAt(r);
@@ -172,7 +182,9 @@ let processor = (() => {
                 }
                 return e
             }
+
             var E, S, O, k, W, j, R, M, I, x = "undefined" != typeof TextDecoder ? new TextDecoder("utf-16le") : void 0;
+
             function U(t, e) {
                 for (var r = t, n = r >> 1, o = n + e / 2; !(n >= o) && W[n];)
                     ++n;
@@ -186,9 +198,10 @@ let processor = (() => {
                 }
                 return i
             }
+
             function H(t, e, r) {
                 if (void 0 === r && (r = 2147483647),
-                    r < 2)
+                r < 2)
                     return 0;
                 for (var n = e, o = (r -= 2) < 2 * t.length ? r / 2 : t.length, i = 0; i < o; ++i) {
                     var a = t.charCodeAt(i);
@@ -196,18 +209,20 @@ let processor = (() => {
                         e += 2
                 }
                 return k[e >> 1] = 0,
-                    e - n
+                e - n
             }
+
             function Y(t) {
                 return 2 * t.length
             }
+
             function V(t, e) {
                 for (var r = 0, n = ""; !(r >= e / 4);) {
                     var o = j[t + 4 * r >> 2];
                     if (0 == o)
                         break;
                     if (++r,
-                        o >= 65536) {
+                    o >= 65536) {
                         var i = o - 65536;
                         n += String.fromCharCode(55296 | i >> 10, 56320 | 1023 & i)
                     } else
@@ -215,21 +230,23 @@ let processor = (() => {
                 }
                 return n
             }
+
             function z(t, e, r) {
                 if (void 0 === r && (r = 2147483647),
-                    r < 4)
+                r < 4)
                     return 0;
                 for (var n = e, o = n + r - 4, i = 0; i < t.length; ++i) {
                     var a = t.charCodeAt(i);
                     if (a >= 55296 && a <= 57343)
                         a = 65536 + ((1023 & a) << 10) | 1023 & t.charCodeAt(++i);
                     if (j[e >> 2] = a,
-                        (e += 4) + 4 > o)
+                    (e += 4) + 4 > o)
                         break
                 }
                 return j[e >> 2] = 0,
-                    e - n
+                e - n
             }
+
             function B(t) {
                 for (var e = 0, r = 0; r < t.length; ++r) {
                     var n = t.charCodeAt(r);
@@ -238,28 +255,34 @@ let processor = (() => {
                 }
                 return e
             }
+
             o.INITIAL_MEMORY;
             var L, G = [], N = [], q = [];
             var J = 0
                 , X = null
                 , Z = null;
+
             function K(t) {
                 throw o.onAbort && o.onAbort(t),
-                g(t = "Aborted(" + t + ")"),
-                C = !0,
-                1,
-                t += ". Build with -s ASSERTIONS=1 for more info.",
-                new WebAssembly.RuntimeError(t)
+                    g(t = "Aborted(" + t + ")"),
+                    C = !0,
+                    1,
+                    t += ". Build with -s ASSERTIONS=1 for more info.",
+                    new WebAssembly.RuntimeError(t)
             }
+
             o.preloadedImages = {},
                 o.preloadedAudios = {};
             var Q;
+
             function tt(t) {
                 return t.startsWith("data:application/octet-stream;base64,")
             }
+
             function et(t) {
                 return t.startsWith("file://")
             }
+
             function rt(t) {
                 try {
                     if (t == Q && w)
@@ -271,6 +294,7 @@ let processor = (() => {
                     K(t)
                 }
             }
+
             function nt(t) {
                 for (; t.length > 0;) {
                     var e = t.shift();
@@ -281,16 +305,19 @@ let processor = (() => {
                         e(o)
                 }
             }
+
             tt(Q = "/afp.wasm") || (Q = function (t) {
                 return path.join(process.cwd(), "afp.wasm")
             }(Q));
             var ot = [];
+
             function it(t) {
                 var e = ot[t];
                 return e || (t >= ot.length && (ot.length = t + 1),
                     ot[t] = e = L.get(t)),
                     e
             }
+
             function at(t) {
                 this.excPtr = t,
                     this.ptr = t - 16,
@@ -348,9 +375,10 @@ let processor = (() => {
                     this.release_ref = function () {
                         var t = j[this.ptr >> 2];
                         return j[this.ptr >> 2] = t - 1,
-                            1 === t
+                        1 === t
                     }
             }
+
             function ut(t) {
                 switch (t) {
                     case 1:
@@ -365,32 +393,38 @@ let processor = (() => {
                         throw new TypeError("Unknown type size: " + t)
                 }
             }
+
             var st = void 0;
+
             function ct(t) {
                 for (var e = "", r = t; O[r];)
                     e += st[O[r++]];
                 return e
             }
+
             var ft = {}
                 , lt = {}
                 , pt = {};
+
             function dt(t) {
                 if (void 0 === t)
                     return "_unknown";
                 var e = (t = t.replace(/[^a-zA-Z0-9_]/g, "$")).charCodeAt(0);
                 return e >= 48 && e <= 57 ? "_" + t : t
             }
+
             function ht(t, e) {
                 return t = dt(t),
                     new Function("body", "return function " + t + '() {\n    "use strict";    return body.apply(this, arguments);\n};\n')(e)
             }
+
             function yt(t, e) {
                 var r = ht(e, (function (t) {
-                    this.name = e,
-                        this.message = t;
-                    var r = new Error(t).stack;
-                    void 0 !== r && (this.stack = this.toString() + "\n" + r.replace(/^Error(:[^\n]*)?\n/, ""))
-                }
+                        this.name = e,
+                            this.message = t;
+                        var r = new Error(t).stack;
+                        void 0 !== r && (this.stack = this.toString() + "\n" + r.replace(/^Error(:[^\n]*)?\n/, ""))
+                    }
                 ));
                 return r.prototype = Object.create(t.prototype),
                     r.prototype.constructor = r,
@@ -400,14 +434,19 @@ let processor = (() => {
                     ,
                     r
             }
+
             var mt = void 0;
+
             function vt(t) {
                 throw new mt(t)
             }
+
             var gt = void 0;
+
             function wt(t) {
                 throw new gt(t)
             }
+
             function bt(t, e, r) {
                 function n(e) {
                     var n = r(e);
@@ -415,25 +454,27 @@ let processor = (() => {
                     for (var o = 0; o < t.length; ++o)
                         _t(t[o], n[o])
                 }
+
                 t.forEach((function (t) {
-                    pt[t] = e
-                }
+                        pt[t] = e
+                    }
                 ));
                 var o = new Array(e.length)
                     , i = []
                     , a = 0;
                 e.forEach((function (t, e) {
-                    lt.hasOwnProperty(t) ? o[e] = lt[t] : (i.push(t),
+                        lt.hasOwnProperty(t) ? o[e] = lt[t] : (i.push(t),
                         ft.hasOwnProperty(t) || (ft[t] = []),
-                        ft[t].push((function () {
-                            o[e] = lt[t],
-                                ++a === i.length && n(o)
-                        }
-                        )))
-                }
+                            ft[t].push((function () {
+                                    o[e] = lt[t],
+                                    ++a === i.length && n(o)
+                                }
+                            )))
+                    }
                 )),
-                    0 === i.length && n(o)
+                0 === i.length && n(o)
             }
+
             function _t(t, e, r) {
                 if (r = r || {},
                     !("argPackAdvance" in e))
@@ -451,11 +492,12 @@ let processor = (() => {
                     var o = ft[t];
                     delete ft[t],
                         o.forEach((function (t) {
-                            t()
-                        }
+                                t()
+                            }
                         ))
                 }
             }
+
             function Ct(t) {
                 if (!(this instanceof Rt))
                     return !1;
@@ -469,17 +511,23 @@ let processor = (() => {
                         n = n.baseClass;
                 return e === n && r === o
             }
+
             function Tt(t) {
                 vt(t.$$.ptrType.registeredClass.name + " instance already deleted")
             }
+
             var $t = !1;
-            function Pt(t) { }
+
+            function Pt(t) {
+            }
+
             function At(t) {
                 t.count.value -= 1,
-                    0 === t.count.value && function (t) {
-                        t.smartPtr ? t.smartPtrType.rawDestructor(t.smartPtr) : t.ptrType.registeredClass.rawDestructor(t.ptr)
-                    }(t)
+                0 === t.count.value && function (t) {
+                    t.smartPtr ? t.smartPtrType.rawDestructor(t.smartPtr) : t.ptrType.registeredClass.rawDestructor(t.ptr)
+                }(t)
             }
+
             function Dt(t) {
                 return "undefined" == typeof FinalizationRegistry ? (Dt = function (t) {
                     return t
@@ -488,21 +536,22 @@ let processor = (() => {
                     t) : ($t = new FinalizationRegistry((function (t) {
                         At(t.$$)
                     }
-                    )),
-                        Dt = function (t) {
-                            var e = {
-                                $$: t.$$
-                            };
-                            return $t.register(t, e, t),
-                                t
-                        }
-                        ,
-                        Pt = function (t) {
-                            $t.unregister(t)
-                        }
-                        ,
-                        Dt(t))
+                )),
+                    Dt = function (t) {
+                        var e = {
+                            $$: t.$$
+                        };
+                        return $t.register(t, e, t),
+                            t
+                    }
+                    ,
+                    Pt = function (t) {
+                        $t.unregister(t)
+                    }
+                    ,
+                    Dt(t))
             }
+
             function Ft() {
                 if (this.$$.ptr || Tt(this),
                     this.$$.preservePointerOnDelete)
@@ -511,34 +560,38 @@ let processor = (() => {
                 var t, e = Dt(Object.create(Object.getPrototypeOf(this), {
                     $$: {
                         value: (t = this.$$,
-                        {
-                            count: t.count,
-                            deleteScheduled: t.deleteScheduled,
-                            preservePointerOnDelete: t.preservePointerOnDelete,
-                            ptr: t.ptr,
-                            ptrType: t.ptrType,
-                            smartPtr: t.smartPtr,
-                            smartPtrType: t.smartPtrType
-                        })
+                            {
+                                count: t.count,
+                                deleteScheduled: t.deleteScheduled,
+                                preservePointerOnDelete: t.preservePointerOnDelete,
+                                ptr: t.ptr,
+                                ptrType: t.ptrType,
+                                smartPtr: t.smartPtr,
+                                smartPtrType: t.smartPtrType
+                            })
                     }
                 }));
                 return e.$$.count.value += 1,
                     e.$$.deleteScheduled = !1,
                     e
             }
+
             function Et() {
                 this.$$.ptr || Tt(this),
-                    this.$$.deleteScheduled && !this.$$.preservePointerOnDelete && vt("Object already scheduled for deletion"),
+                this.$$.deleteScheduled && !this.$$.preservePointerOnDelete && vt("Object already scheduled for deletion"),
                     Pt(this),
                     At(this.$$),
-                    this.$$.preservePointerOnDelete || (this.$$.smartPtr = void 0,
-                        this.$$.ptr = void 0)
+                this.$$.preservePointerOnDelete || (this.$$.smartPtr = void 0,
+                    this.$$.ptr = void 0)
             }
+
             function St() {
                 return !this.$$.ptr
             }
+
             var Ot = void 0
                 , kt = [];
+
             function Wt() {
                 for (; kt.length;) {
                     var t = kt.pop();
@@ -546,16 +599,21 @@ let processor = (() => {
                         t.delete()
                 }
             }
+
             function jt() {
                 return this.$$.ptr || Tt(this),
-                    this.$$.deleteScheduled && !this.$$.preservePointerOnDelete && vt("Object already scheduled for deletion"),
+                this.$$.deleteScheduled && !this.$$.preservePointerOnDelete && vt("Object already scheduled for deletion"),
                     kt.push(this),
-                    1 === kt.length && Ot && Ot(Wt),
+                1 === kt.length && Ot && Ot(Wt),
                     this.$$.deleteScheduled = !0,
                     this
             }
-            function Rt() { }
+
+            function Rt() {
+            }
+
             var Mt = {};
+
             function It(t, e, r) {
                 if (void 0 === t[e].overloadTable) {
                     var n = t[e];
@@ -568,13 +626,15 @@ let processor = (() => {
                         t[e].overloadTable[n.argCount] = n
                 }
             }
+
             function xt(t, e, r) {
                 o.hasOwnProperty(t) ? ((void 0 === r || void 0 !== o[t].overloadTable && void 0 !== o[t].overloadTable[r]) && vt("Cannot register public name '" + t + "' twice"),
                     It(o, t, t),
-                    o.hasOwnProperty(r) && vt("Cannot register multiple overloads of a function with the same number of arguments (" + r + ")!"),
+                o.hasOwnProperty(r) && vt("Cannot register multiple overloads of a function with the same number of arguments (" + r + ")!"),
                     o[t].overloadTable[r] = e) : (o[t] = e,
-                        void 0 !== r && (o[t].numArguments = r))
+                void 0 !== r && (o[t].numArguments = r))
             }
+
             function Ut(t, e, r, n, o, i, a, u) {
                 this.name = t,
                     this.constructor = e,
@@ -586,6 +646,7 @@ let processor = (() => {
                     this.downcast = u,
                     this.pureVirtualFunctions = []
             }
+
             function Ht(t, e, r) {
                 for (; e !== r;)
                     e.upcast || vt("Expected null or instance of " + r.name + ", got an instance of " + e.name),
@@ -593,30 +654,32 @@ let processor = (() => {
                         e = e.baseClass;
                 return t
             }
+
             function Yt(t, e) {
                 if (null === e)
                     return this.isReference && vt("null is not a valid " + this.name),
                         0;
                 e.$$ || vt('Cannot pass "' + ge(e) + '" as a ' + this.name),
-                    e.$$.ptr || vt("Cannot pass deleted object as a pointer of type " + this.name);
+                e.$$.ptr || vt("Cannot pass deleted object as a pointer of type " + this.name);
                 var r = e.$$.ptrType.registeredClass;
                 return Ht(e.$$.ptr, r, this.registeredClass)
             }
+
             function Vt(t, e) {
                 var r;
                 if (null === e)
                     return this.isReference && vt("null is not a valid " + this.name),
                         this.isSmartPointer ? (r = this.rawConstructor(),
-                            null !== t && t.push(this.rawDestructor, r),
+                        null !== t && t.push(this.rawDestructor, r),
                             r) : 0;
                 e.$$ || vt('Cannot pass "' + ge(e) + '" as a ' + this.name),
-                    e.$$.ptr || vt("Cannot pass deleted object as a pointer of type " + this.name),
-                    !this.isConst && e.$$.ptrType.isConst && vt("Cannot convert argument of type " + (e.$$.smartPtrType ? e.$$.smartPtrType.name : e.$$.ptrType.name) + " to parameter type " + this.name);
+                e.$$.ptr || vt("Cannot pass deleted object as a pointer of type " + this.name),
+                !this.isConst && e.$$.ptrType.isConst && vt("Cannot convert argument of type " + (e.$$.smartPtrType ? e.$$.smartPtrType.name : e.$$.ptrType.name) + " to parameter type " + this.name);
                 var n = e.$$.ptrType.registeredClass;
                 if (r = Ht(e.$$.ptr, n, this.registeredClass),
                     this.isSmartPointer)
                     switch (void 0 === e.$$.smartPtr && vt("Passing raw pointer to smart pointer is illegal"),
-                    this.sharingPolicy) {
+                        this.sharingPolicy) {
                         case 0:
                             e.$$.smartPtrType === this ? r = e.$$.smartPtr : vt("Cannot convert argument of type " + (e.$$.smartPtrType ? e.$$.smartPtrType.name : e.$$.ptrType.name) + " to parameter type " + this.name);
                             break;
@@ -629,10 +692,10 @@ let processor = (() => {
                             else {
                                 var o = e.clone();
                                 r = this.rawShare(r, ve.toHandle((function () {
-                                    o.delete()
-                                }
+                                        o.delete()
+                                    }
                                 ))),
-                                    null !== t && t.push(this.rawDestructor, r)
+                                null !== t && t.push(this.rawDestructor, r)
                             }
                             break;
                         default:
@@ -640,29 +703,35 @@ let processor = (() => {
                     }
                 return r
             }
+
             function zt(t, e) {
                 if (null === e)
                     return this.isReference && vt("null is not a valid " + this.name),
                         0;
                 e.$$ || vt('Cannot pass "' + ge(e) + '" as a ' + this.name),
-                    e.$$.ptr || vt("Cannot pass deleted object as a pointer of type " + this.name),
-                    e.$$.ptrType.isConst && vt("Cannot convert argument of type " + e.$$.ptrType.name + " to parameter type " + this.name);
+                e.$$.ptr || vt("Cannot pass deleted object as a pointer of type " + this.name),
+                e.$$.ptrType.isConst && vt("Cannot convert argument of type " + e.$$.ptrType.name + " to parameter type " + this.name);
                 var r = e.$$.ptrType.registeredClass;
                 return Ht(e.$$.ptr, r, this.registeredClass)
             }
+
             function Bt(t) {
                 return this.fromWireType(R[t >> 2])
             }
+
             function Lt(t) {
                 return this.rawGetPointee && (t = this.rawGetPointee(t)),
                     t
             }
+
             function Gt(t) {
                 this.rawDestructor && this.rawDestructor(t)
             }
+
             function Nt(t) {
                 null !== t && t.delete()
             }
+
             function qt(t, e, r) {
                 if (e === r)
                     return t;
@@ -671,20 +740,25 @@ let processor = (() => {
                 var n = qt(t, e, r.baseClass);
                 return null === n ? null : r.downcast(n)
             }
+
             function Jt() {
                 return Object.keys(Kt).length
             }
+
             function Xt() {
                 var t = [];
                 for (var e in Kt)
                     Kt.hasOwnProperty(e) && t.push(Kt[e]);
                 return t
             }
+
             function Zt(t) {
                 Ot = t,
-                    kt.length && Ot && Ot(Wt)
+                kt.length && Ot && Ot(Wt)
             }
+
             var Kt = {};
+
             function Qt(t, e) {
                 return e = function (t, e) {
                     for (void 0 === e && vt("ptr should not be undefined"); t.baseClass;)
@@ -694,9 +768,10 @@ let processor = (() => {
                 }(t, e),
                     Kt[e]
             }
+
             function te(t, e) {
                 return e.ptrType && e.ptr || wt("makeClassHandle requires ptr and ptrType"),
-                    !!e.smartPtrType !== !!e.smartPtr && wt("Both smartPtrType and smartPtr must be specified"),
+                !!e.smartPtrType !== !!e.smartPtr && wt("Both smartPtrType and smartPtr must be specified"),
                     e.count = {
                         value: 1
                     },
@@ -706,6 +781,7 @@ let processor = (() => {
                         }
                     }))
             }
+
             function ee(t) {
                 var e = this.getPointee(t);
                 if (!e)
@@ -721,6 +797,7 @@ let processor = (() => {
                     return this.destructor(t),
                         n
                 }
+
                 function o() {
                     return this.isSmartPointer ? te(this.registeredClass.instancePrototype, {
                         ptrType: this.pointeeType,
@@ -732,6 +809,7 @@ let processor = (() => {
                         ptr: t
                     })
                 }
+
                 var i, a = this.registeredClass.getActualType(e), u = Mt[a];
                 if (!u)
                     return o.call(this);
@@ -747,6 +825,7 @@ let processor = (() => {
                     ptr: s
                 })
             }
+
             function re(t, e, r, n, o, i, a, u, s, c, f) {
                 this.name = t,
                     this.registeredClass = e,
@@ -761,61 +840,70 @@ let processor = (() => {
                     this.rawDestructor = f,
                     o || void 0 !== e.baseClass ? this.toWireType = Vt : n ? (this.toWireType = Yt,
                         this.destructorFunction = null) : (this.toWireType = zt,
-                            this.destructorFunction = null)
+                        this.destructorFunction = null)
             }
+
             function ne(t, e, r) {
                 o.hasOwnProperty(t) || wt("Replacing nonexistant public symbol"),
                     void 0 !== o[t].overloadTable && void 0 !== r ? o[t].overloadTable[r] = e : (o[t] = e,
                         o[t].argCount = r)
             }
+
             function oe(t, e, r) {
                 return t.includes("j") ? function (t, e, r) {
                     var n = o["dynCall_" + t];
                     return r && r.length ? n.apply(null, [e].concat(r)) : n.call(null, e)
                 }(t, e, r) : it(e).apply(null, r)
             }
+
             function ie(t, e) {
                 var r, n, o, i = (t = ct(t)).includes("j") ? (r = t,
-                    n = e,
-                    o = [],
-                    function () {
-                        o.length = arguments.length;
-                        for (var t = 0; t < arguments.length; t++)
-                            o[t] = arguments[t];
-                        return oe(r, n, o)
-                    }
+                        n = e,
+                        o = [],
+                        function () {
+                            o.length = arguments.length;
+                            for (var t = 0; t < arguments.length; t++)
+                                o[t] = arguments[t];
+                            return oe(r, n, o)
+                        }
                 ) : it(e);
                 return "function" != typeof i && vt("unknown function pointer with signature " + t + ": " + e),
                     i
             }
+
             var ae = void 0;
+
             function ue(t) {
                 var e = je(t)
                     , r = ct(e);
                 return We(e),
                     r
             }
+
             function se(t, e) {
                 var r = []
                     , n = {};
                 throw e.forEach((function t(e) {
-                    n[e] || lt[e] || (pt[e] ? pt[e].forEach(t) : (r.push(e),
-                        n[e] = !0))
-                }
+                        n[e] || lt[e] || (pt[e] ? pt[e].forEach(t) : (r.push(e),
+                            n[e] = !0))
+                    }
                 )),
-                new ae(t + ": " + r.map(ue).join([", "]))
+                    new ae(t + ": " + r.map(ue).join([", "]))
             }
+
             function ce(t, e) {
                 for (var r = [], n = 0; n < t; n++)
                     r.push(j[(e >> 2) + n]);
                 return r
             }
+
             function fe(t) {
                 for (; t.length;) {
                     var e = t.pop();
                     t.pop()(e)
                 }
             }
+
             function le(t, e, r, n, o) {
                 var i = e.length;
                 i < 2 && vt("argTypes array size mismatch! Must at least get return value and 'this' types!");
@@ -857,7 +945,8 @@ let processor = (() => {
                     function (t, e) {
                         if (!(t instanceof Function))
                             throw new TypeError("new_ called with constructor type " + typeof t + " which is not a function");
-                        var r = ht(t.name || "unknownFunctionName", (function () { }
+                        var r = ht(t.name || "unknownFunctionName", (function () {
+                            }
                         ));
                         r.prototype = t.prototype;
                         var n = new r
@@ -865,31 +954,36 @@ let processor = (() => {
                         return o instanceof Object ? o : n
                     }(Function, h).apply(null, y)
             }
+
             var pe = []
                 , de = [{}, {
-                    value: void 0
-                }, {
-                    value: null
-                }, {
-                    value: !0
-                }, {
-                    value: !1
-                }];
+                value: void 0
+            }, {
+                value: null
+            }, {
+                value: !0
+            }, {
+                value: !1
+            }];
+
             function he(t) {
                 t > 4 && 0 == --de[t].refcount && (de[t] = void 0,
                     pe.push(t))
             }
+
             function ye() {
                 for (var t = 0, e = 5; e < de.length; ++e)
                     void 0 !== de[e] && ++t;
                 return t
             }
+
             function me() {
                 for (var t = 5; t < de.length; ++t)
                     if (void 0 !== de[t])
                         return de[t];
                 return null
             }
+
             var ve = {
                 toValue: function (t) {
                     return t || vt("Cannot use deleted val. handle = " + t),
@@ -915,12 +1009,14 @@ let processor = (() => {
                     }
                 }
             };
+
             function ge(t) {
                 if (null === t)
                     return "null";
                 var e = typeof t;
                 return "object" === e || "array" === e || "function" === e ? t.toString() : "" + t
             }
+
             function we(t, e) {
                 switch (e) {
                     case 2:
@@ -937,28 +1033,29 @@ let processor = (() => {
                         throw new TypeError("Unknown float type: " + t)
                 }
             }
+
             function be(t, e, r) {
                 switch (e) {
                     case 0:
                         return r ? function (t) {
-                            return S[t]
-                        }
+                                return S[t]
+                            }
                             : function (t) {
                                 return O[t]
                             }
                             ;
                     case 1:
                         return r ? function (t) {
-                            return k[t >> 1]
-                        }
+                                return k[t >> 1]
+                            }
                             : function (t) {
                                 return W[t >> 1]
                             }
                             ;
                     case 2:
                         return r ? function (t) {
-                            return j[t >> 2]
-                        }
+                                return j[t >> 2]
+                            }
                             : function (t) {
                                 return R[t >> 2]
                             }
@@ -967,7 +1064,9 @@ let processor = (() => {
                         throw new TypeError("Unknown integer type: " + t)
                 }
             }
+
             var _e = {};
+
             function Ce() {
                 if (!Ce.strings) {
                     var t = {
@@ -988,6 +1087,7 @@ let processor = (() => {
                 }
                 return Ce.strings
             }
+
             var Te = {
                 mappings: {},
                 buffers: [null, [], []],
@@ -1008,16 +1108,20 @@ let processor = (() => {
                     return t
                 }
             };
+
             function $e(t) {
                 return t % 4 == 0 && (t % 100 != 0 || t % 400 == 0)
             }
+
             function Pe(t, e) {
                 for (var r = 0, n = 0; n <= e; r += t[n++])
                     ;
                 return r
             }
+
             var Ae = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
                 , De = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
             function Fe(t, e) {
                 for (var r = new Date(t.getTime()); e > 0;) {
                     var n = $e(r.getFullYear())
@@ -1033,72 +1137,79 @@ let processor = (() => {
                 }
                 return r
             }
+
             function Ee(t, e, r, n) {
                 var o = j[n + 40 >> 2]
                     , i = {
-                        tm_sec: j[n >> 2],
-                        tm_min: j[n + 4 >> 2],
-                        tm_hour: j[n + 8 >> 2],
-                        tm_mday: j[n + 12 >> 2],
-                        tm_mon: j[n + 16 >> 2],
-                        tm_year: j[n + 20 >> 2],
-                        tm_wday: j[n + 24 >> 2],
-                        tm_yday: j[n + 28 >> 2],
-                        tm_isdst: j[n + 32 >> 2],
-                        tm_gmtoff: j[n + 36 >> 2],
-                        tm_zone: o ? A(o) : ""
-                    }
+                    tm_sec: j[n >> 2],
+                    tm_min: j[n + 4 >> 2],
+                    tm_hour: j[n + 8 >> 2],
+                    tm_mday: j[n + 12 >> 2],
+                    tm_mon: j[n + 16 >> 2],
+                    tm_year: j[n + 20 >> 2],
+                    tm_wday: j[n + 24 >> 2],
+                    tm_yday: j[n + 28 >> 2],
+                    tm_isdst: j[n + 32 >> 2],
+                    tm_gmtoff: j[n + 36 >> 2],
+                    tm_zone: o ? A(o) : ""
+                }
                     , a = A(r)
                     , u = {
-                        "%c": "%a %b %d %H:%M:%S %Y",
-                        "%D": "%m/%d/%y",
-                        "%F": "%Y-%m-%d",
-                        "%h": "%b",
-                        "%r": "%I:%M:%S %p",
-                        "%R": "%H:%M",
-                        "%T": "%H:%M:%S",
-                        "%x": "%m/%d/%y",
-                        "%X": "%H:%M:%S",
-                        "%Ec": "%c",
-                        "%EC": "%C",
-                        "%Ex": "%m/%d/%y",
-                        "%EX": "%H:%M:%S",
-                        "%Ey": "%y",
-                        "%EY": "%Y",
-                        "%Od": "%d",
-                        "%Oe": "%e",
-                        "%OH": "%H",
-                        "%OI": "%I",
-                        "%Om": "%m",
-                        "%OM": "%M",
-                        "%OS": "%S",
-                        "%Ou": "%u",
-                        "%OU": "%U",
-                        "%OV": "%V",
-                        "%Ow": "%w",
-                        "%OW": "%W",
-                        "%Oy": "%y"
-                    };
+                    "%c": "%a %b %d %H:%M:%S %Y",
+                    "%D": "%m/%d/%y",
+                    "%F": "%Y-%m-%d",
+                    "%h": "%b",
+                    "%r": "%I:%M:%S %p",
+                    "%R": "%H:%M",
+                    "%T": "%H:%M:%S",
+                    "%x": "%m/%d/%y",
+                    "%X": "%H:%M:%S",
+                    "%Ec": "%c",
+                    "%EC": "%C",
+                    "%Ex": "%m/%d/%y",
+                    "%EX": "%H:%M:%S",
+                    "%Ey": "%y",
+                    "%EY": "%Y",
+                    "%Od": "%d",
+                    "%Oe": "%e",
+                    "%OH": "%H",
+                    "%OI": "%I",
+                    "%Om": "%m",
+                    "%OM": "%M",
+                    "%OS": "%S",
+                    "%Ou": "%u",
+                    "%OU": "%U",
+                    "%OV": "%V",
+                    "%Ow": "%w",
+                    "%OW": "%W",
+                    "%Oy": "%y"
+                };
                 for (var s in u)
                     a = a.replace(new RegExp(s, "g"), u[s]);
                 var c = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-                    , f = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    ,
+                    f = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
                 function l(t, e, r) {
                     for (var n = "number" == typeof t ? t.toString() : t || ""; n.length < e;)
                         n = r[0] + n;
                     return n
                 }
+
                 function p(t, e) {
                     return l(t, e, "0")
                 }
+
                 function d(t, e) {
                     function r(t) {
                         return t < 0 ? -1 : t > 0 ? 1 : 0
                     }
+
                     var n;
                     return 0 === (n = r(t.getFullYear() - e.getFullYear())) && 0 === (n = r(t.getMonth() - e.getMonth())) && (n = r(t.getDate() - e.getDate())),
                         n
                 }
+
                 function h(t) {
                     switch (t.getDay()) {
                         case 0:
@@ -1117,6 +1228,7 @@ let processor = (() => {
                             return new Date(t.getFullYear() - 1, 11, 30)
                     }
                 }
+
                 function y(t) {
                     var e = Fe(new Date(t.tm_year + 1900, 0, 1), t.tm_yday)
                         , r = new Date(e.getFullYear(), 0, 4)
@@ -1125,6 +1237,7 @@ let processor = (() => {
                         , i = h(n);
                     return d(o, e) <= 0 ? d(i, e) <= 0 ? e.getFullYear() + 1 : e.getFullYear() : e.getFullYear() - 1
                 }
+
                 var m = {
                     "%a": function (t) {
                         return c[t.tm_wday].substring(0, 3)
@@ -1197,7 +1310,8 @@ let processor = (() => {
                         return 0 === d(r, e) ? "01" : "00"
                     },
                     "%V": function (t) {
-                        var e, r = new Date(t.tm_year + 1900, 0, 4), n = new Date(t.tm_year + 1901, 0, 4), o = h(r), i = h(n), a = Fe(new Date(t.tm_year + 1900, 0, 1), t.tm_yday);
+                        var e, r = new Date(t.tm_year + 1900, 0, 4), n = new Date(t.tm_year + 1901, 0, 4), o = h(r),
+                            i = h(n), a = Fe(new Date(t.tm_year + 1900, 0, 1), t.tm_yday);
                         return d(a, o) < 0 ? "53" : d(i, a) <= 0 ? "01" : (e = o.getFullYear() < t.tm_year + 1900 ? t.tm_yday + 32 - o.getDate() : t.tm_yday + 1 - o.getDate(),
                             p(Math.ceil(e / 7), 2))
                     },
@@ -1225,7 +1339,7 @@ let processor = (() => {
                         var e = t.tm_gmtoff
                             , r = e >= 0;
                         return e = (e = Math.abs(e) / 60) / 60 * 100 + e % 60,
-                            (r ? "+" : "-") + String("0000" + e).slice(-4)
+                        (r ? "+" : "-") + String("0000" + e).slice(-4)
                     },
                     "%Z": function (t) {
                         return t.tm_zone
@@ -1246,8 +1360,9 @@ let processor = (() => {
                 return v.length > e ? 0 : (function (t, e) {
                     S.set(t, e)
                 }(v, t),
-                    v.length - 1)
+                v.length - 1)
             }
+
             !function () {
                 for (var t = new Array(256), e = 0; e < 256; ++e)
                     t[e] = String.fromCharCode(e);
@@ -1274,336 +1389,292 @@ let processor = (() => {
                 o.count_emval_handles = ye,
                 o.get_first_emval = me;
             var Se, Oe = {
-                d: function (t, e, r, n) {
-                    K("Assertion failed: " + A(t) + ", at: " + [e ? A(e) : "unknown filename", r, n ? A(n) : "unknown function"])
-                },
-                g: function (t) {
-                    return ke(t + 16) + 16
-                },
-                f: function (t, e, r) {
-                    throw new at(t).init(e, r),
-                    t,
-                    t
-                },
-                p: function (t, e, r, n, o) { },
-                y: function (t, e, r, n, o) {
-                    var i = ut(r);
-                    _t(t, {
-                        name: e = ct(e),
-                        fromWireType: function (t) {
-                            return !!t
-                        },
-                        toWireType: function (t, e) {
-                            return e ? n : o
-                        },
-                        argPackAdvance: 8,
-                        readValueFromPointer: function (t) {
-                            var n;
-                            if (1 === r)
-                                n = S;
-                            else if (2 === r)
-                                n = k;
-                            else {
-                                if (4 !== r)
-                                    throw new TypeError("Unknown boolean type size: " + e);
-                                n = j
-                            }
-                            return this.fromWireType(n[t >> i])
-                        },
-                        destructorFunction: null
-                    })
-                },
-                A: function (t, e, r, n, o, i, a, u, s, c, f, l, p) {
-                    f = ct(f),
-                        i = ie(o, i),
+                    d: function (t, e, r, n) {
+                        K("Assertion failed: " + A(t) + ", at: " + [e ? A(e) : "unknown filename", r, n ? A(n) : "unknown function"])
+                    },
+                    g: function (t) {
+                        return ke(t + 16) + 16
+                    },
+                    f: function (t, e, r) {
+                        throw new at(t).init(e, r),
+                            t,
+                            t
+                    },
+                    p: function (t, e, r, n, o) {
+                    },
+                    y: function (t, e, r, n, o) {
+                        var i = ut(r);
+                        _t(t, {
+                            name: e = ct(e),
+                            fromWireType: function (t) {
+                                return !!t
+                            },
+                            toWireType: function (t, e) {
+                                return e ? n : o
+                            },
+                            argPackAdvance: 8,
+                            readValueFromPointer: function (t) {
+                                var n;
+                                if (1 === r)
+                                    n = S;
+                                else if (2 === r)
+                                    n = k;
+                                else {
+                                    if (4 !== r)
+                                        throw new TypeError("Unknown boolean type size: " + e);
+                                    n = j
+                                }
+                                return this.fromWireType(n[t >> i])
+                            },
+                            destructorFunction: null
+                        })
+                    },
+                    A: function (t, e, r, n, o, i, a, u, s, c, f, l, p) {
+                        f = ct(f),
+                            i = ie(o, i),
                         u && (u = ie(a, u)),
                         c && (c = ie(s, c)),
-                        p = ie(l, p);
-                    var d = dt(f);
-                    xt(d, (function () {
-                        se("Cannot construct " + f + " due to unbound types", [n])
-                    }
-                    )),
-                        bt([t, e, r], n ? [n] : [], (function (e) {
-                            var r, o;
-                            e = e[0],
-                                o = n ? (r = e.registeredClass).instancePrototype : Rt.prototype;
-                            var a = ht(d, (function () {
-                                if (Object.getPrototypeOf(this) !== s)
-                                    throw new mt("Use 'new' to construct " + f);
-                                if (void 0 === l.constructor_body)
-                                    throw new mt(f + " has no accessible constructor");
-                                var t = l.constructor_body[arguments.length];
-                                if (void 0 === t)
-                                    throw new mt("Tried to invoke ctor of " + f + " with invalid number of parameters (" + arguments.length + ") - expected (" + Object.keys(l.constructor_body).toString() + ") parameters instead!");
-                                return t.apply(this, arguments)
+                            p = ie(l, p);
+                        var d = dt(f);
+                        xt(d, (function () {
+                                se("Cannot construct " + f + " due to unbound types", [n])
                             }
+                        )),
+                            bt([t, e, r], n ? [n] : [], (function (e) {
+                                    var r, o;
+                                    e = e[0],
+                                        o = n ? (r = e.registeredClass).instancePrototype : Rt.prototype;
+                                    var a = ht(d, (function () {
+                                            if (Object.getPrototypeOf(this) !== s)
+                                                throw new mt("Use 'new' to construct " + f);
+                                            if (void 0 === l.constructor_body)
+                                                throw new mt(f + " has no accessible constructor");
+                                            var t = l.constructor_body[arguments.length];
+                                            if (void 0 === t)
+                                                throw new mt("Tried to invoke ctor of " + f + " with invalid number of parameters (" + arguments.length + ") - expected (" + Object.keys(l.constructor_body).toString() + ") parameters instead!");
+                                            return t.apply(this, arguments)
+                                        }
+                                    ))
+                                        , s = Object.create(o, {
+                                        constructor: {
+                                            value: a
+                                        }
+                                    });
+                                    a.prototype = s;
+                                    var l = new Ut(f, a, s, p, r, i, u, c)
+                                        , h = new re(f, l, !0, !1, !1)
+                                        , y = new re(f + "*", l, !1, !1, !1)
+                                        , m = new re(f + " const*", l, !1, !0, !1);
+                                    return Mt[t] = {
+                                        pointerType: y,
+                                        constPointerType: m
+                                    },
+                                        ne(d, a),
+                                        [h, y, m]
+                                }
                             ))
-                                , s = Object.create(o, {
-                                    constructor: {
-                                        value: a
-                                    }
-                                });
-                            a.prototype = s;
-                            var l = new Ut(f, a, s, p, r, i, u, c)
-                                , h = new re(f, l, !0, !1, !1)
-                                , y = new re(f + "*", l, !1, !1, !1)
-                                , m = new re(f + " const*", l, !1, !0, !1);
-                            return Mt[t] = {
-                                pointerType: y,
-                                constPointerType: m
-                            },
-                                ne(d, a),
-                                [h, y, m]
-                        }
-                        ))
-                },
-                w: function (t, e, r, n, o, i) {
-                    T(e > 0);
-                    var a = ce(e, r);
-                    o = ie(n, o),
-                        bt([], [t], (function (t) {
-                            var r = "constructor " + (t = t[0]).name;
-                            if (void 0 === t.registeredClass.constructor_body && (t.registeredClass.constructor_body = []),
-                                void 0 !== t.registeredClass.constructor_body[e - 1])
-                                throw new mt("Cannot register multiple constructors with identical number of parameters (" + (e - 1) + ") for class '" + t.name + "'! Overload resolution is currently only performed using the parameter count, not actual type info!");
-                            return t.registeredClass.constructor_body[e - 1] = function () {
-                                se("Cannot construct " + t.name + " due to unbound types", a)
-                            }
-                                ,
-                                bt([], a, (function (n) {
-                                    return n.splice(1, 0, null),
-                                        t.registeredClass.constructor_body[e - 1] = le(r, n, null, o, i),
-                                        []
-                                }
-                                )),
-                                []
-                        }
-                        ))
-                },
-                c: function (t, e, r, n, o, i, a, u) {
-                    var s = ce(r, n);
-                    e = ct(e),
-                        i = ie(o, i),
-                        bt([], [t], (function (t) {
-                            var n = (t = t[0]).name + "." + e;
-                            function o() {
-                                se("Cannot call " + n + " due to unbound types", s)
-                            }
-                            e.startsWith("@@") && (e = Symbol[e.substring(2)]),
-                                u && t.registeredClass.pureVirtualFunctions.push(e);
-                            var c = t.registeredClass.instancePrototype
-                                , f = c[e];
-                            return void 0 === f || void 0 === f.overloadTable && f.className !== t.name && f.argCount === r - 2 ? (o.argCount = r - 2,
-                                o.className = t.name,
-                                c[e] = o) : (It(c, e, n),
-                                    c[e].overloadTable[r - 2] = o),
-                                bt([], s, (function (o) {
-                                    var u = le(n, o, t, i, a);
-                                    return void 0 === c[e].overloadTable ? (u.argCount = r - 2,
-                                        c[e] = u) : c[e].overloadTable[r - 2] = u,
-                                        []
-                                }
-                                )),
-                                []
-                        }
-                        ))
-                },
-                x: function (t, e) {
-                    _t(t, {
-                        name: e = ct(e),
-                        fromWireType: function (t) {
-                            var e = ve.toValue(t);
-                            return he(t),
-                                e
-                        },
-                        toWireType: function (t, e) {
-                            return ve.toHandle(e)
-                        },
-                        argPackAdvance: 8,
-                        readValueFromPointer: Bt,
-                        destructorFunction: null
-                    })
-                },
-                j: function (t, e, r) {
-                    var n = ut(r);
-                    _t(t, {
-                        name: e = ct(e),
-                        fromWireType: function (t) {
-                            return t
-                        },
-                        toWireType: function (t, e) {
-                            if ("number" != typeof e && "boolean" != typeof e)
-                                throw new TypeError('Cannot convert "' + ge(e) + '" to ' + this.name);
-                            return e
-                        },
-                        argPackAdvance: 8,
-                        readValueFromPointer: we(e, n),
-                        destructorFunction: null
-                    })
-                },
-                l: function (t, e, r, n, o, i) {
-                    var a = ce(e, r);
-                    t = ct(t),
+                    },
+                    w: function (t, e, r, n, o, i) {
+                        T(e > 0);
+                        var a = ce(e, r);
                         o = ie(n, o),
-                        xt(t, (function () {
-                            se("Cannot call " + t + " due to unbound types", a)
-                        }
-                        ), e - 1),
-                        bt([], a, (function (r) {
-                            var n = [r[0], null].concat(r.slice(1));
-                            return ne(t, le(t, n, null, o, i), e - 1),
-                                []
-                        }
-                        ))
-                },
-                b: function (t, e, r, n, o) {
-                    e = ct(e),
+                            bt([], [t], (function (t) {
+                                    var r = "constructor " + (t = t[0]).name;
+                                    if (void 0 === t.registeredClass.constructor_body && (t.registeredClass.constructor_body = []),
+                                    void 0 !== t.registeredClass.constructor_body[e - 1])
+                                        throw new mt("Cannot register multiple constructors with identical number of parameters (" + (e - 1) + ") for class '" + t.name + "'! Overload resolution is currently only performed using the parameter count, not actual type info!");
+                                    return t.registeredClass.constructor_body[e - 1] = function () {
+                                        se("Cannot construct " + t.name + " due to unbound types", a)
+                                    }
+                                        ,
+                                        bt([], a, (function (n) {
+                                                return n.splice(1, 0, null),
+                                                    t.registeredClass.constructor_body[e - 1] = le(r, n, null, o, i),
+                                                    []
+                                            }
+                                        )),
+                                        []
+                                }
+                            ))
+                    },
+                    c: function (t, e, r, n, o, i, a, u) {
+                        var s = ce(r, n);
+                        e = ct(e),
+                            i = ie(o, i),
+                            bt([], [t], (function (t) {
+                                    var n = (t = t[0]).name + "." + e;
+
+                                    function o() {
+                                        se("Cannot call " + n + " due to unbound types", s)
+                                    }
+
+                                    e.startsWith("@@") && (e = Symbol[e.substring(2)]),
+                                    u && t.registeredClass.pureVirtualFunctions.push(e);
+                                    var c = t.registeredClass.instancePrototype
+                                        , f = c[e];
+                                    return void 0 === f || void 0 === f.overloadTable && f.className !== t.name && f.argCount === r - 2 ? (o.argCount = r - 2,
+                                        o.className = t.name,
+                                        c[e] = o) : (It(c, e, n),
+                                        c[e].overloadTable[r - 2] = o),
+                                        bt([], s, (function (o) {
+                                                var u = le(n, o, t, i, a);
+                                                return void 0 === c[e].overloadTable ? (u.argCount = r - 2,
+                                                    c[e] = u) : c[e].overloadTable[r - 2] = u,
+                                                    []
+                                            }
+                                        )),
+                                        []
+                                }
+                            ))
+                    },
+                    x: function (t, e) {
+                        _t(t, {
+                            name: e = ct(e),
+                            fromWireType: function (t) {
+                                var e = ve.toValue(t);
+                                return he(t),
+                                    e
+                            },
+                            toWireType: function (t, e) {
+                                return ve.toHandle(e)
+                            },
+                            argPackAdvance: 8,
+                            readValueFromPointer: Bt,
+                            destructorFunction: null
+                        })
+                    },
+                    j: function (t, e, r) {
+                        var n = ut(r);
+                        _t(t, {
+                            name: e = ct(e),
+                            fromWireType: function (t) {
+                                return t
+                            },
+                            toWireType: function (t, e) {
+                                if ("number" != typeof e && "boolean" != typeof e)
+                                    throw new TypeError('Cannot convert "' + ge(e) + '" to ' + this.name);
+                                return e
+                            },
+                            argPackAdvance: 8,
+                            readValueFromPointer: we(e, n),
+                            destructorFunction: null
+                        })
+                    },
+                    l: function (t, e, r, n, o, i) {
+                        var a = ce(e, r);
+                        t = ct(t),
+                            o = ie(n, o),
+                            xt(t, (function () {
+                                    se("Cannot call " + t + " due to unbound types", a)
+                                }
+                            ), e - 1),
+                            bt([], a, (function (r) {
+                                    var n = [r[0], null].concat(r.slice(1));
+                                    return ne(t, le(t, n, null, o, i), e - 1),
+                                        []
+                                }
+                            ))
+                    },
+                    b: function (t, e, r, n, o) {
+                        e = ct(e),
                         -1 === o && (o = 4294967295);
-                    var i = ut(r)
-                        , a = function (t) {
+                        var i = ut(r)
+                            , a = function (t) {
                             return t
                         };
-                    if (0 === n) {
-                        var u = 32 - 8 * r;
-                        a = function (t) {
-                            return t << u >>> u
+                        if (0 === n) {
+                            var u = 32 - 8 * r;
+                            a = function (t) {
+                                return t << u >>> u
+                            }
                         }
-                    }
-                    var s = e.includes("unsigned");
-                    _t(t, {
-                        name: e,
-                        fromWireType: a,
-                        toWireType: function (t, r) {
-                            if ("number" != typeof r && "boolean" != typeof r)
-                                throw new TypeError('Cannot convert "' + ge(r) + '" to ' + this.name);
-                            if (r < n || r > o)
-                                throw new TypeError('Passing a number "' + ge(r) + '" from JS side to C/C++ side to an argument of type "' + e + '", which is outside the valid range [' + n + ", " + o + "]!");
-                            return s ? r >>> 0 : 0 | r
-                        },
-                        argPackAdvance: 8,
-                        readValueFromPointer: be(e, i, 0 !== n),
-                        destructorFunction: null
-                    })
-                },
-                a: function (t, e, r) {
-                    var n = [Int8Array, Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array][e];
-                    function o(t) {
-                        var e = R
-                            , r = e[t >>= 2]
-                            , o = e[t + 1];
-                        return new n(E, o, r)
-                    }
-                    _t(t, {
-                        name: r = ct(r),
-                        fromWireType: o,
-                        argPackAdvance: 8,
-                        readValueFromPointer: o
-                    }, {
-                        ignoreDuplicateRegistrations: !0
-                    })
-                },
-                k: function (t, e) {
-                    var r = "std::string" === (e = ct(e));
-                    _t(t, {
-                        name: e,
-                        fromWireType: function (t) {
-                            var e, n = R[t >> 2];
-                            if (r)
-                                for (var o = t + 4, i = 0; i <= n; ++i) {
-                                    var a = t + 4 + i;
-                                    if (i == n || 0 == O[a]) {
-                                        var u = A(o, a - o);
-                                        void 0 === e ? e = u : (e += String.fromCharCode(0),
-                                            e += u),
-                                            o = a + 1
-                                    }
-                                }
-                            else {
-                                var s = new Array(n);
-                                for (i = 0; i < n; ++i)
-                                    s[i] = String.fromCharCode(O[t + 4 + i]);
-                                e = s.join("")
-                            }
-                            return We(t),
-                                e
-                        },
-                        toWireType: function (t, e) {
-                            e instanceof ArrayBuffer && (e = new Uint8Array(e));
-                            var n = "string" == typeof e;
-                            n || e instanceof Uint8Array || e instanceof Uint8ClampedArray || e instanceof Int8Array || vt("Cannot pass non-string to std::string");
-                            var o = (r && n ? function () {
-                                return F(e)
-                            }
-                                : function () {
-                                    return e.length
-                                }
-                            )()
-                                , i = ke(4 + o + 1);
-                            if (R[i >> 2] = o,
-                                r && n)
-                                D(e, O, i + 4, o + 1);
-                            else if (n)
-                                for (var a = 0; a < o; ++a) {
-                                    var u = e.charCodeAt(a);
-                                    u > 255 && (We(i),
-                                        vt("String has UTF-16 code units that do not fit in 8 bits")),
-                                        O[i + 4 + a] = u
-                                }
-                            else
-                                for (a = 0; a < o; ++a)
-                                    O[i + 4 + a] = e[a];
-                            return null !== t && t.push(We, i),
-                                i
-                        },
-                        argPackAdvance: 8,
-                        readValueFromPointer: Bt,
-                        destructorFunction: function (t) {
-                            We(t)
-                        }
-                    })
-                },
-                e: function (t, e, r) {
-                    var n, o, i, a, u;
-                    r = ct(r),
-                        2 === e ? (n = U,
-                            o = H,
-                            a = Y,
-                            i = function () {
-                                return W
-                            }
-                            ,
-                            u = 1) : 4 === e && (n = V,
-                                o = z,
-                                a = B,
-                                i = function () {
-                                    return R
-                                }
-                                ,
-                                u = 2),
+                        var s = e.includes("unsigned");
                         _t(t, {
-                            name: r,
+                            name: e,
+                            fromWireType: a,
+                            toWireType: function (t, r) {
+                                if ("number" != typeof r && "boolean" != typeof r)
+                                    throw new TypeError('Cannot convert "' + ge(r) + '" to ' + this.name);
+                                if (r < n || r > o)
+                                    throw new TypeError('Passing a number "' + ge(r) + '" from JS side to C/C++ side to an argument of type "' + e + '", which is outside the valid range [' + n + ", " + o + "]!");
+                                return s ? r >>> 0 : 0 | r
+                            },
+                            argPackAdvance: 8,
+                            readValueFromPointer: be(e, i, 0 !== n),
+                            destructorFunction: null
+                        })
+                    },
+                    a: function (t, e, r) {
+                        var n = [Int8Array, Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array][e];
+
+                        function o(t) {
+                            var e = R
+                                , r = e[t >>= 2]
+                                , o = e[t + 1];
+                            return new n(E, o, r)
+                        }
+
+                        _t(t, {
+                            name: r = ct(r),
+                            fromWireType: o,
+                            argPackAdvance: 8,
+                            readValueFromPointer: o
+                        }, {
+                            ignoreDuplicateRegistrations: !0
+                        })
+                    },
+                    k: function (t, e) {
+                        var r = "std::string" === (e = ct(e));
+                        _t(t, {
+                            name: e,
                             fromWireType: function (t) {
-                                for (var r, o = R[t >> 2], a = i(), s = t + 4, c = 0; c <= o; ++c) {
-                                    var f = t + 4 + c * e;
-                                    if (c == o || 0 == a[f >> u]) {
-                                        var l = n(s, f - s);
-                                        void 0 === r ? r = l : (r += String.fromCharCode(0),
-                                            r += l),
-                                            s = f + e
+                                var e, n = R[t >> 2];
+                                if (r)
+                                    for (var o = t + 4, i = 0; i <= n; ++i) {
+                                        var a = t + 4 + i;
+                                        if (i == n || 0 == O[a]) {
+                                            var u = A(o, a - o);
+                                            void 0 === e ? e = u : (e += String.fromCharCode(0),
+                                                e += u),
+                                                o = a + 1
+                                        }
                                     }
+                                else {
+                                    var s = new Array(n);
+                                    for (i = 0; i < n; ++i)
+                                        s[i] = String.fromCharCode(O[t + 4 + i]);
+                                    e = s.join("")
                                 }
                                 return We(t),
-                                    r
+                                    e
                             },
-                            toWireType: function (t, n) {
-                                "string" != typeof n && vt("Cannot pass non-string to C++ string type " + r);
-                                var i = a(n)
-                                    , s = ke(4 + i + e);
-                                return R[s >> 2] = i >> u,
-                                    o(n, s + 4, i + e),
-                                    null !== t && t.push(We, s),
-                                    s
+                            toWireType: function (t, e) {
+                                e instanceof ArrayBuffer && (e = new Uint8Array(e));
+                                var n = "string" == typeof e;
+                                n || e instanceof Uint8Array || e instanceof Uint8ClampedArray || e instanceof Int8Array || vt("Cannot pass non-string to std::string");
+                                var o = (r && n ? function () {
+                                            return F(e)
+                                        }
+                                        : function () {
+                                            return e.length
+                                        }
+                                )()
+                                    , i = ke(4 + o + 1);
+                                if (R[i >> 2] = o,
+                                r && n)
+                                    D(e, O, i + 4, o + 1);
+                                else if (n)
+                                    for (var a = 0; a < o; ++a) {
+                                        var u = e.charCodeAt(a);
+                                        u > 255 && (We(i),
+                                            vt("String has UTF-16 code units that do not fit in 8 bits")),
+                                            O[i + 4 + a] = u
+                                    }
+                                else
+                                    for (a = 0; a < o; ++a)
+                                        O[i + 4 + a] = e[a];
+                                return null !== t && t.push(We, i),
+                                    i
                             },
                             argPackAdvance: 8,
                             readValueFromPointer: Bt,
@@ -1611,191 +1682,246 @@ let processor = (() => {
                                 We(t)
                             }
                         })
-                },
-                z: function (t, e) {
-                    _t(t, {
-                        isVoid: !0,
-                        name: e = ct(e),
-                        argPackAdvance: 0,
-                        fromWireType: function () { },
-                        toWireType: function (t, e) { }
-                    })
-                },
-                m: he,
-                n: function (t) {
-                    t > 4 && (de[t].refcount += 1)
-                },
-                o: function (t, e) {
-                    var r, n, o;
-                    n = "_emval_take_value",
-                        void 0 === (o = lt[r = t]) && vt(n + " has unknown type " + ue(r));
-                    var i = (t = o).readValueFromPointer(e);
-                    return ve.toHandle(i)
-                },
-                h: function () {
-                    K("")
-                },
-                r: function (t, e, r) {
-                    O.copyWithin(t, e, e + r)
-                },
-                s: function (t) {
-                    O.length,
-                        K("OOM")
-                },
-                u: function (t, e) {
-                    var r = 0;
-                    return Ce().forEach((function (n, o) {
-                        var i = e + r;
-                        j[t + 4 * o >> 2] = i,
-                            function (t, e, r) {
-                                for (var n = 0; n < t.length; ++n)
-                                    S[e++ >> 0] = t.charCodeAt(n);
-                                r || (S[e >> 0] = 0)
-                            }(n, i),
-                            r += n.length + 1
-                    }
-                    )),
-                        0
-                },
-                v: function (t, e) {
-                    var r = Ce();
-                    j[t >> 2] = r.length;
-                    var n = 0;
-                    return r.forEach((function (t) {
-                        n += t.length + 1
-                    }
-                    )),
-                        j[e >> 2] = n,
-                        0
-                },
-                i: function (t, e, r, n) {
-                    for (var o = 0, i = 0; i < r; i++) {
-                        var a = j[e >> 2]
-                            , u = j[e + 4 >> 2];
-                        e += 8;
-                        for (var s = 0; s < u; s++)
-                            Te.printChar(t, O[a + s]);
-                        o += u
-                    }
-                    return j[n >> 2] = o,
-                        0
-                },
-                q: function (t) {
-                    t
-                },
-                t: function (t, e, r, n) {
-                    return Ee(t, e, r, n)
-                }
-            }, ke = (function () {
-                var t = {
-                    a: Oe
-                };
-                function e(t, e) {
-                    var r, n, i = t.exports;
-                    o.asm = i,
-                        b = o.asm.B,
-                        r = b.buffer,
-                        E = r,
-                        o.HEAP8 = S = new Int8Array(r),
-                        o.HEAP16 = k = new Int16Array(r),
-                        o.HEAP32 = j = new Int32Array(r),
-                        o.HEAPU8 = O = new Uint8Array(r),
-                        o.HEAPU16 = W = new Uint16Array(r),
-                        o.HEAPU32 = R = new Uint32Array(r),
-                        o.HEAPF32 = M = new Float32Array(r),
-                        o.HEAPF64 = I = new Float64Array(r),
-                        L = o.asm.D,
-                        n = o.asm.C,
-                        N.unshift(n),
-                        function (t) {
-                            if (J--,
-                                o.monitorRunDependencies && o.monitorRunDependencies(J),
-                                0 == J && (null !== X && (clearInterval(X),
-                                    X = null),
-                                    Z)) {
-                                var e = Z;
-                                Z = null,
-                                    e()
-                            }
-                        }()
-                }
-                function r(t) {
-                    e(t.instance)
-                    console.log("Module loaded: " + t.instance)
-                }
-                function n(e) {
-                    return function () {
-                        if (!w && (d || h)) {
-                            if ("function" == typeof fetch && !et(Q))
-                                return fetch(Q, {
-                                    credentials: "same-origin"
-                                }).then((function (t) {
-                                    if (!t.ok)
-                                        throw "failed to load wasm binary file at '" + Q + "'";
-                                    return t.arrayBuffer()
+                    },
+                    e: function (t, e, r) {
+                        var n, o, i, a, u;
+                        r = ct(r),
+                            2 === e ? (n = U,
+                                o = H,
+                                a = Y,
+                                i = function () {
+                                    return W
                                 }
-                                )).catch((function () {
-                                    return rt(Q)
+                                ,
+                                u = 1) : 4 === e && (n = V,
+                                o = z,
+                                a = B,
+                                i = function () {
+                                    return R
                                 }
-                                ));
-                            if (u)
-                                return new Promise((function (t, e) {
-                                    u(Q, (function (e) {
-                                        t(new Uint8Array(e))
+                                ,
+                                u = 2),
+                            _t(t, {
+                                name: r,
+                                fromWireType: function (t) {
+                                    for (var r, o = R[t >> 2], a = i(), s = t + 4, c = 0; c <= o; ++c) {
+                                        var f = t + 4 + c * e;
+                                        if (c == o || 0 == a[f >> u]) {
+                                            var l = n(s, f - s);
+                                            void 0 === r ? r = l : (r += String.fromCharCode(0),
+                                                r += l),
+                                                s = f + e
+                                        }
                                     }
-                                    ), e)
+                                    return We(t),
+                                        r
+                                },
+                                toWireType: function (t, n) {
+                                    "string" != typeof n && vt("Cannot pass non-string to C++ string type " + r);
+                                    var i = a(n)
+                                        , s = ke(4 + i + e);
+                                    return R[s >> 2] = i >> u,
+                                        o(n, s + 4, i + e),
+                                    null !== t && t.push(We, s),
+                                        s
+                                },
+                                argPackAdvance: 8,
+                                readValueFromPointer: Bt,
+                                destructorFunction: function (t) {
+                                    We(t)
                                 }
+                            })
+                    },
+                    z: function (t, e) {
+                        _t(t, {
+                            isVoid: !0,
+                            name: e = ct(e),
+                            argPackAdvance: 0,
+                            fromWireType: function () {
+                            },
+                            toWireType: function (t, e) {
+                            }
+                        })
+                    },
+                    m: he,
+                    n: function (t) {
+                        t > 4 && (de[t].refcount += 1)
+                    },
+                    o: function (t, e) {
+                        var r, n, o;
+                        n = "_emval_take_value",
+                        void 0 === (o = lt[r = t]) && vt(n + " has unknown type " + ue(r));
+                        var i = (t = o).readValueFromPointer(e);
+                        return ve.toHandle(i)
+                    },
+                    h: function () {
+                        K("")
+                    },
+                    r: function (t, e, r) {
+                        O.copyWithin(t, e, e + r)
+                    },
+                    s: function (t) {
+                        O.length,
+                            K("OOM")
+                    },
+                    u: function (t, e) {
+                        var r = 0;
+                        return Ce().forEach((function (n, o) {
+                                var i = e + r;
+                                j[t + 4 * o >> 2] = i,
+                                    function (t, e, r) {
+                                        for (var n = 0; n < t.length; ++n)
+                                            S[e++ >> 0] = t.charCodeAt(n);
+                                        r || (S[e >> 0] = 0)
+                                    }(n, i),
+                                    r += n.length + 1
+                            }
+                        )),
+                            0
+                    },
+                    v: function (t, e) {
+                        var r = Ce();
+                        j[t >> 2] = r.length;
+                        var n = 0;
+                        return r.forEach((function (t) {
+                                n += t.length + 1
+                            }
+                        )),
+                            j[e >> 2] = n,
+                            0
+                    },
+                    i: function (t, e, r, n) {
+                        for (var o = 0, i = 0; i < r; i++) {
+                            var a = j[e >> 2]
+                                , u = j[e + 4 >> 2];
+                            e += 8;
+                            for (var s = 0; s < u; s++)
+                                Te.printChar(t, O[a + s]);
+                            o += u
+                        }
+                        return j[n >> 2] = o,
+                            0
+                    },
+                    q: function (t) {
+                        t
+                    },
+                    t: function (t, e, r, n) {
+                        return Ee(t, e, r, n)
+                    }
+                }, ke = (function () {
+                        var t = {
+                            a: Oe
+                        };
+
+                        function e(t, e) {
+                            var r, n, i = t.exports;
+                            o.asm = i,
+                                b = o.asm.B,
+                                r = b.buffer,
+                                E = r,
+                                o.HEAP8 = S = new Int8Array(r),
+                                o.HEAP16 = k = new Int16Array(r),
+                                o.HEAP32 = j = new Int32Array(r),
+                                o.HEAPU8 = O = new Uint8Array(r),
+                                o.HEAPU16 = W = new Uint16Array(r),
+                                o.HEAPU32 = R = new Uint32Array(r),
+                                o.HEAPF32 = M = new Float32Array(r),
+                                o.HEAPF64 = I = new Float64Array(r),
+                                L = o.asm.D,
+                                n = o.asm.C,
+                                N.unshift(n),
+                                function (t) {
+                                    if (J--,
+                                    o.monitorRunDependencies && o.monitorRunDependencies(J),
+                                    0 == J && (null !== X && (clearInterval(X),
+                                        X = null),
+                                        Z)) {
+                                        var e = Z;
+                                        Z = null,
+                                            e()
+                                    }
+                                }()
+                        }
+
+                        function r(t) {
+                            e(t.instance)
+                            console.log("Module loaded: " + t.instance)
+                        }
+
+                        function n(e) {
+                            return function () {
+                                if (!w && (d || h)) {
+                                    if ("function" == typeof fetch && !et(Q))
+                                        return fetch(Q, {
+                                            credentials: "same-origin"
+                                        }).then((function (t) {
+                                                if (!t.ok)
+                                                    throw "failed to load wasm binary file at '" + Q + "'";
+                                                return t.arrayBuffer()
+                                            }
+                                        )).catch((function () {
+                                                return rt(Q)
+                                            }
+                                        ));
+                                    if (u)
+                                        return new Promise((function (t, e) {
+                                                u(Q, (function (e) {
+                                                        t(new Uint8Array(e))
+                                                    }
+                                                ), e)
+                                            }
+                                        ))
+                                }
+                                return Promise.resolve().then((function () {
+                                        return rt(Q)
+                                    }
                                 ))
+                            }().then((function (e) {
+                                    return WebAssembly.instantiate(e, t)
+                                }
+                            )).then((function (t) {
+                                    return t
+                                }
+                            )).then(e, (function (t) {
+                                    g("failed to asynchronously prepare wasm: " + t),
+                                        K(t)
+                                }
+                            ))
                         }
-                        return Promise.resolve().then((function () {
-                            return rt(Q)
+
+                        if (J++,
+                        o.monitorRunDependencies && o.monitorRunDependencies(J),
+                            o.instantiateWasm)
+                            try {
+                                return o.instantiateWasm(t, e)
+                            } catch (t) {
+                                return g("Module.instantiateWasm callback failed with error: " + t),
+                                    !1
+                            }
+                        w || "function" != typeof WebAssembly.instantiate || tt(Q) || et(Q) || "function" != typeof fetch ? n(r) : fs.readFile(Q, function (e) {
+                            return WebAssembly.instantiate(e, t).then(r, (function (t) {
+                                    return g("wasm streaming compile failed: " + t),
+                                        g("falling back to ArrayBuffer instantiation"),
+                                        n(r)
+                                }
+                            ))
+                        })
+                        console.log("Module loading: " + Q)
+                    }(),
+                        o.___wasm_call_ctors = function () {
+                            return (o.___wasm_call_ctors = o.asm.C).apply(null, arguments)
                         }
-                        ))
-                    }().then((function (e) {
-                        return WebAssembly.instantiate(e, t)
-                    }
-                    )).then((function (t) {
-                        return t
-                    }
-                    )).then(e, (function (t) {
-                        g("failed to asynchronously prepare wasm: " + t),
-                            K(t)
-                    }
-                    ))
+                        ,
+                        o._malloc = function () {
+                            return (ke = o._malloc = o.asm.E).apply(null, arguments)
+                        }
+                ), We = o._free = function () {
+                    return (We = o._free = o.asm.F).apply(null, arguments)
                 }
-                if (J++,
-                    o.monitorRunDependencies && o.monitorRunDependencies(J),
-                    o.instantiateWasm)
-                    try {
-                        return o.instantiateWasm(t, e)
-                    } catch (t) {
-                        return g("Module.instantiateWasm callback failed with error: " + t),
-                            !1
-                    }
-                w || "function" != typeof WebAssembly.instantiate || tt(Q) || et(Q) || "function" != typeof fetch ? n(r) : fs.readFile(Q,function (e) {
-                    return WebAssembly.instantiate(e, t).then(r, (function (t) {
-                        return g("wasm streaming compile failed: " + t),
-                            g("falling back to ArrayBuffer instantiation"),
-                            n(r)
-                    }
-                    ))
-                })
-                console.log("Module loading: " + Q)
-            }(),
-                o.___wasm_call_ctors = function () {
-                    return (o.___wasm_call_ctors = o.asm.C).apply(null, arguments)
-                }
-                ,
-                o._malloc = function () {
-                    return (ke = o._malloc = o.asm.E).apply(null, arguments)
-                }
-            ), We = o._free = function () {
-                return (We = o._free = o.asm.F).apply(null, arguments)
-            }
                 , je = o.___getTypeName = function () {
                     return (je = o.___getTypeName = o.asm.G).apply(null, arguments)
                 }
-                ;
+            ;
             o.___embind_register_native_and_builtin_types = function () {
                 return (o.___embind_register_native_and_builtin_types = o.asm.H).apply(null, arguments)
             }
@@ -1819,50 +1945,54 @@ let processor = (() => {
                 o.dynCall_viijii = function () {
                     return (o.dynCall_viijii = o.asm.M).apply(null, arguments)
                 }
-                ;
+            ;
+
             function Re(t) {
                 this.name = "ExitStatus",
                     this.message = "Program terminated with exit(" + t + ")",
                     this.status = t
             }
+
             function Me(t) {
                 function e() {
                     Se || (Se = !0,
                         o.calledRun = !0,
-                        C || (!0,
-                            nt(N),
-                            o.onRuntimeInitialized && o.onRuntimeInitialized(),
-                            function () {
-                                if (o.postRun)
-                                    for ("function" == typeof o.postRun && (o.postRun = [o.postRun]); o.postRun.length;)
-                                        t = o.postRun.shift(),
-                                            q.unshift(t);
-                                var t;
-                                nt(q)
-                            }()))
+                    C || (!0,
+                        nt(N),
+                    o.onRuntimeInitialized && o.onRuntimeInitialized(),
+                        function () {
+                            if (o.postRun)
+                                for ("function" == typeof o.postRun && (o.postRun = [o.postRun]); o.postRun.length;)
+                                    t = o.postRun.shift(),
+                                        q.unshift(t);
+                            var t;
+                            nt(q)
+                        }()))
                 }
+
                 t = t || l,
-                    J > 0 || (!function () {
-                        if (o.preRun)
-                            for ("function" == typeof o.preRun && (o.preRun = [o.preRun]); o.preRun.length;)
-                                t = o.preRun.shift(),
-                                    G.unshift(t);
-                        var t;
-                        nt(G)
-                    }(),
-                        J > 0 || (o.setStatus ? (o.setStatus("Running..."),
+                J > 0 || (!function () {
+                    if (o.preRun)
+                        for ("function" == typeof o.preRun && (o.preRun = [o.preRun]); o.preRun.length;)
+                            t = o.preRun.shift(),
+                                G.unshift(t);
+                    var t;
+                    nt(G)
+                }(),
+                J > 0 || (o.setStatus ? (o.setStatus("Running..."),
+                    setTimeout((function () {
                             setTimeout((function () {
-                                setTimeout((function () {
                                     o.setStatus("")
                                 }
-                                ), 1),
-                                    e()
-                            }
-                            ), 1)) : e()))
+                            ), 1),
+                                e()
+                        }
+                    ), 1)) : e()))
             }
+
             if (Z = function t() {
                 Se || Me(),
-                    Se || (Z = t)
+                Se || (Z = t)
             }
                 ,
                 o.run = Me,
@@ -1886,6 +2016,7 @@ let processor = (() => {
         }
     }
         , e = {};
+
     function r(n) {
         var o = e[n];
         if (void 0 !== o)
@@ -1896,6 +2027,7 @@ let processor = (() => {
         return t[n](i, i.exports, r),
             i.exports
     }
+
     r.n = t => {
         var e = t && t.__esModule ? () => t.default : () => t;
         return r.d(e, {
@@ -1915,11 +2047,11 @@ let processor = (() => {
     return (() => {
         "use strict";
         var t, e = new Uint8Array(16);
+
         function n() {
-            if (!t && !(t = "undefined" != typeof crypto && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || "undefined" != typeof msCrypto && "function" == typeof msCrypto.getRandomValues && msCrypto.getRandomValues.bind(msCrypto)))
-                throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-            return t(e)
+            return getRandomValues(e)
         }
+
         const o = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
         const i = function (t) {
             return "string" == typeof t && o.test(t)
@@ -1928,7 +2060,8 @@ let processor = (() => {
             a.push((u + 256).toString(16).substr(1));
         const s = function (t) {
             var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 0
-                , r = (a[t[e + 0]] + a[t[e + 1]] + a[t[e + 2]] + a[t[e + 3]] + "-" + a[t[e + 4]] + a[t[e + 5]] + "-" + a[t[e + 6]] + a[t[e + 7]] + "-" + a[t[e + 8]] + a[t[e + 9]] + "-" + a[t[e + 10]] + a[t[e + 11]] + a[t[e + 12]] + a[t[e + 13]] + a[t[e + 14]] + a[t[e + 15]]).toLowerCase();
+                ,
+                r = (a[t[e + 0]] + a[t[e + 1]] + a[t[e + 2]] + a[t[e + 3]] + "-" + a[t[e + 4]] + a[t[e + 5]] + "-" + a[t[e + 6]] + a[t[e + 7]] + "-" + a[t[e + 8]] + a[t[e + 9]] + "-" + a[t[e + 10]] + a[t[e + 11]] + a[t[e + 12]] + a[t[e + 13]] + a[t[e + 14]] + a[t[e + 15]]).toLowerCase();
             if (!i(r))
                 throw TypeError("Stringified UUID is invalid");
             return r
@@ -1954,16 +2087,19 @@ let processor = (() => {
                 simpleRate: 8e3
             };
             buffers = [];
-            init({ config: t }) {
+
+            init({config: t}) {
                 this.config = t
             }
+
             start() {
                 this.recbuffer = new Float32Array(0),
                     this.times = 1,
                     this.sessionId = c()
                 return l()
             }
-            record({ buffer: t }) {
+
+            record({buffer: t}) {
                 var e, r, n, o;
                 if (this.recbuffer = (e = this.recbuffer,
                     r = t[0],
@@ -1971,7 +2107,7 @@ let processor = (() => {
                     (o = new Float32Array(n + r.length)).set(e),
                     o.set(r, n),
                     o),
-                    this.recbuffer.length >= 48e3 && 1 === this.times)
+                this.recbuffer.length >= 48e3 && 1 === this.times)
                     return this.times = 2,
                         this.duration = 6,
                         this.match(function (t, e) {
@@ -1981,6 +2117,7 @@ let processor = (() => {
                             return r
                         }(this.recbuffer, 48e3).buffer)
             }
+
             match(t) {
                 const e = l().ExtractQueryFP(t), r = new Int8Array(e.size());
                 for (let t = 0; t < e.size(); t++) {
@@ -2036,6 +2173,7 @@ function NeteaseRecordArrayToBase64(data) {
         })
     })
 }
+
 function toNCMBuffer(audiodata, from, len, channel) {
     let now = 0;
     let json = {}
@@ -2049,6 +2187,7 @@ function toNCMBuffer(audiodata, from, len, channel) {
     }
     return json;
 }
+
 module.exports = {
     Encode: (audiodata, from, len, channel = 0) => {
         return NeteaseRecordArrayToBase64(toNCMBuffer(audiodata, from, len, channel))

@@ -13,7 +13,6 @@ const Recognize = async (songData) => {
     try {
         let data = await audioCtx.decodeAudioData(songData)
         var encoded = await NeteaseUtils.Encode(data, 0, 6, 0)
-        console.log(encoded)
     } catch (e) {
         console.log(e)
         return {data: null, code: -1, message: 'Decode audio data error'}
