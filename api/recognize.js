@@ -11,19 +11,30 @@ module.exports = async (req, res) => {
         body += chunk;
     });
     req.on("end", async function () {
-        const file = querystring.parse(body, "\r\n", ":");
-        const entireData = body.toString();
-        let contentType = file["Content-Type"].substring(1);
-        const upperBoundary = entireData.indexOf(contentType) + contentType.length;
-        const shorterData = entireData.substring(upperBoundary);
-        const binaryDataAlmost = shorterData
-            .replace(/^\s\s*/, "")
-            .replace(/\s\s*$/, "");
-        const binaryData = binaryDataAlmost.substring(0, binaryDataAlmost.indexOf("--" + boundary + "--"));
-        const bufferData = new Buffer.from(binaryData, "binary");
+        let bufferData = ''
+        try {
+            const file = querystring.parse(body, "\r\n", ":");
+            const entireData = body.toString();
+            let contentType = file["Content-Type"].substring(1);
+            const upperBoundary = entireData.indexOf(contentType) + contentType.length;
+            const shorterData = entireData.substring(upperBoundary);
+            const binaryDataAlmost = shorterData
+                .replace(/^\s\s*/, "")
+                .replace(/\s\s*$/, "");
+            const binaryData = binaryDataAlmost.substring(0, binaryDataAlmost.indexOf("--" + boundary + "--"));
+            bufferData = new Buffer.from(binaryData, "binary");
+        } catch(e) {
+            console.log(e)
+        }
+
+        if (bufferData.length < 1) {
+            res.status(500)
+            res.json({data: null, code: -1, message: 'Failed to parse song data'});
+            return
+        }
 
         let result = await Recognize(bufferData);
-        if (result?.code !== 0) {
+        if (result?.code !== 200) {
             res.status(500)
         }
         res.json(result);
