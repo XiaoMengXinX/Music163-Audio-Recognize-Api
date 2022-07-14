@@ -2,63 +2,70 @@
 <html lang="zh">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>听歌识曲</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>听歌识曲</title>
 </head>
 
 <body>
-  <input id="file" type="file" />
-  <br />
-  <br />
-  <div id="result" class="result"></div>
-  <br />
-  <br />
-  <div id="info" class="info"></div>
-  <script src="https://cdn.jsdelivr.net/npm/axios@0.26.1/dist/axios.min.js
+<input id="file" type="file"/>
+<br/>
+<p>请上传一个采样率为48000hz的mp3文件</p>
+<br/>
+<div id="result" class="result"></div>
+<br/>
+<br/>
+<div id="info" class="info"></div>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.26.1/dist/axios.min.js
     "></script>
-  <script>
+<script>
     main()
+
     async function main() {
-      document.querySelector('input[type="file"]').addEventListener(
-        'change',
-        function (e) {
-          var file = this.files[0]
-          upload(file)
-        },
-        false,
-      )
+        document.querySelector('input[type="file"]').addEventListener(
+            'change',
+            function (e) {
+                var file = this.files[0]
+                upload(file)
+            },
+            false,
+        )
     }
+
     async function upload(file) {
-      var formData = new FormData()
-      formData.append('file', file)
-      const res = await axios({
-        method: 'post',
-        url: `/api/recognize`,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        data: formData,
-      }).then(function (response) {
-        result = response.data
-      })
-      let text = ''
-      result.data?.result.forEach((item, index) => {
-        text += `[${index + 1}] ${item.song.name} - ${item.song.artists.map(artist => artist.name).join('/')} Album: 「${item.song.album.name}」 CID: [${item.song.id}]<br/>`
-      })
-      document.querySelector('#result').innerHTML = text
-      document.querySelector('#info').innerText = JSON.stringify(result.data, null, 2)
+        var formData = new FormData()
+        formData.append('file', file)
+        const res = await axios({
+            method: 'post',
+            url: `/api/recognize`,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            data: formData,
+        }).then(function (response) {
+            result = response.data
+        })
+        let text = ''
+        try {
+            result.data?.result.forEach((item, index) => {
+                text += `[${index + 1}] ${item.song.name} - ${item.song.artists.map(artist => artist.name).join('/')} Album: 「${item.song.album.name}」 CID: [${item.song.id}]<br/>`
+            })
+        } catch (e) {
+            text = 'No result'
+        }
+        document.querySelector('#result').innerHTML = text
+        document.querySelector('#info').innerText = JSON.stringify(result.data, null, 2)
     }
-  </script>
-  <style>
+</script>
+<style>
     .info {
-      white-space: pre;
+        white-space: pre;
     }
 
     .result {
-      white-space: pre;
+        white-space: pre;
     }
-  </style>
+</style>
 </body>
 
 </html>
